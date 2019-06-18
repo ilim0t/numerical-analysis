@@ -25,7 +25,8 @@ endif ()
 include(GoogleTest)
 
 add_executable(NumericalAnalysisTest
-        construct.cpp)
+        construct.cpp
+        norm.cpp)
 target_link_libraries(NumericalAnalysisTest
 #        NumericalAnalysisLIB
         gtest
