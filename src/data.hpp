@@ -1,32 +1,43 @@
-#ifndef NUMERICAL_ANALYSIS_LIB2_LIBRARY_H
-#define NUMERICAL_ANALYSIS_LIB2_LIBRARY_H
+#include <array>
+#include <functional>
+#include <iostream>
+#include <initializer_list>
 
-template <typename T>
-class vector
+template <typename T, std::size_t N, std::size_t M>
+struct Mat : std::array<std::array<T, M>, N>
 {
-protected:
-  std::vector<T> data;
-
-  vector(const int &, const std::function<T(int)> &);
-
-  vector(const int &, const T & = 0);
-};
-
-template <typename T>
-class matrix
-{
-private:
-  std::vector<std::vector<T>> data;
-
-  matrix(const std::vector<int> &, const std::function<T(std::vector<int>)> &);
-
-  matrix(const std::vector<int> &, const T & = 0);
+  typedef std::array<std::array<T, M>, N> super;
 
 public:
-  //    friend std::ostream &operator<<(std::ostream &, const matrix<T> &);
+  Mat(std::initializer_list<std::array<T, M>> list)
+  {
+    auto begin = list.begin();
+    if (N != list.size())
+    {
+      std::cout << "ERROR";
+    }
+    for (int i = 0; i < list.size(); ++i)
+    {
+      super::at(i) = begin[i];
+    }
+  }
+
+  Mat(const T &init_value)
+  {
+    for (int i=0; i< super::size(); ++i)
+    {
+      super::at(i).fill(init_value);
+    }
+  }
+
+  Mat(const std::function<T(int, int)> &func)
+  {
+    for (int i = 0; i < N; ++i)
+    {
+      for (int j = 0; j < M; ++j)
+      {
+        super::at(i).at(j) = func(i, j);
+      }
+    }
+  };
 };
-
-template <typename T>
-std::ostream &operator<<(std::ostream &, const matrix<T> &);
-
-#endif //NUMERICAL_ANALYSIS_LIB2_LIBRARY_H

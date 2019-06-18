@@ -10,4 +10,4 @@ add_subdirectory(test)
 
 add_executable(numerical-analysis main.cpp)
 target_link_libraries(numerical-analysis NumericalAnalysisLIB)
-target_include_directories(numerical-analysis src)
+target_include_directories(numerical-analysis PUBLIC src)
