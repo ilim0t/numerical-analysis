@@ -25,7 +25,10 @@ endif ()
 include(GoogleTest)
 
 add_executable(NumericalAnalysisTest numerical-analysis-test.cpp)
-target_link_libraries(NumericalAnalysisTest NumericalAnalysisLIB gtest gmock_main)
+target_link_libraries(NumericalAnalysisTest
+#        NumericalAnalysisLIB
+        gtest
+        gmock_main)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
