@@ -1,63 +1,113 @@
+#ifndef NUMERICAL_ANALYSIS_DATA_HPP
+#define NUMERICAL_ANALYSIS_DATA_HPP
+
 #include <array>
-#include <functional>
 #include <initializer_list>
-#include <iostream>
+#include <functional>
 #include <cassert>
 #include <algorithm>
-#include <numeric>
+#include <iterator>
+#include <ostream>
+#include <complex>
 
-template<typename T, std::size_t N, std::size_t M>
-struct Mat : std::array<std::array<T, M>, N> {
-//    typedef std::array<std::array<T, M>, N> super;
+template<typename T, std::size_t R, std::size_t C>
+struct Mat {
+    static_assert(R * C > 0, "number of matrix elements must greater than 0");
+    std::array<std::array<T, C>, R> mat_;
 
-public:
-    const std::size_t raw_size = N;
-    const std::size_t col_size = M;
-
-    Mat(std::initializer_list<std::array<T, M>> list) {
-        const auto begin = list.begin();
-        if (N != list.size()) {
-            std::cout << "ERROR";
-        }
-        for (int i = 0; i < list.size(); ++i) {
-
-            this->at(i) = begin[i];
-        }
-    }
-
-    Mat(const T &init_value) {
-        for (int i = 0; i < this->size(); ++i) {
-            this->at(i).fill(init_value);
-        }
-    }
-
-    Mat(const std::function<T(int, int)> &func) {
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < M; ++j) {
-                this->at(i).at(j) = func(i, j);
-            }
+    Mat(const std::initializer_list<std::array<T, C>> &list) {
+        assert(list.size() == raw_size());
+        for (std::size_t i = 0; i < list.size(); ++i) {
+            mat_.at(i) = list.begin()[i];
         }
     };
 
-    double norm_1() const {
-        std::array<double, M> buf;
-        buf.fill(0);
-        for (const auto raw : *this) {
-            for (int j = 0; j < this->col_size; ++j) {
-                buf.at(j) += std::abs(raw.at(j));
-            }
+    Mat(const T &init_value) {
+        for (auto &col: mat_) {
+            col.fill(init_value);
         }
-        return *std::max_element(buf.begin(), buf.end());
     }
 
-    double norm_inf() const {
-        std::array<double, N> buf;
-        buf.fill(0);
-        for (int i = 0; i < this->raw_size; ++i) {
-            for (const auto x : this->at(i)) {
-                buf.at(i) += std::abs(x);
+    Mat(const std::function<T(std::size_t, std::size_t)> &func) {
+        for (std::size_t i = 0; i < raw_size(); ++i) {
+            for (std::size_t j = 0; j < col_size(); ++j) {
+                at(i, j) = func(i, j);
             }
         }
-        return *std::max_element(buf.begin(), buf.end());
+    }
+
+
+    constexpr const std::size_t raw_size() const {
+        return R;
+    }
+
+    constexpr const std::size_t col_size() const {
+        return C;
+    }
+
+    constexpr const std::size_t size() const {
+        return R * C;
+    }
+
+    _GLIBCXX17_CONSTEXPR T &at(std::size_t i, std::size_t j) {
+        return mat_.at(i).at(j);
+    }
+
+    constexpr const T &at(std::size_t i, std::size_t j) const {
+        return mat_.at(i).at(j);
+    }
+
+    _GLIBCXX17_CONSTEXPR std::array<T, C> *
+    begin() noexcept { return mat_.begin(); }
+
+    _GLIBCXX17_CONSTEXPR const std::array<T, C> *
+    begin() const noexcept { return mat_.begin(); }
+
+    _GLIBCXX17_CONSTEXPR std::array<T, C> *
+    end() noexcept { return mat_.end(); }
+
+    _GLIBCXX17_CONSTEXPR const std::array<T, C> *
+    end() const noexcept { return mat_.end(); }
+
+    _GLIBCXX17_CONSTEXPR std::array<T, C> &
+    front() noexcept { return mat_.front(); }
+
+    constexpr const std::array<T, C> &
+    front() const noexcept { return mat_.front(); }
+
+    _GLIBCXX17_CONSTEXPR std::array<T, C> &
+    back() noexcept { return mat_.back(); }
+
+    constexpr const std::array<T, C> &
+    back() const noexcept { return mat_.back(); }
+
+
+    const decltype(std::abs(mat_.at(0).at(0))) norm_1() const {
+        std::array<decltype(std::abs(mat_.at(0).at(0))), C> each_col_sums;
+
+        each_col_sums.fill(0);
+        for (const auto &raw : mat_) {
+            for (std::size_t i = 0; i < col_size(); ++i) {
+                each_col_sums.at(i) += std::abs(raw.at(i));
+            }
+        }
+        return *std::max_element(each_col_sums.begin(), each_col_sums.end());
+    }
+
+    const decltype(std::abs(mat_.at(0).at(0))) norm_inf() const {
+        std::array<decltype(std::abs(mat_.at(0).at(0))), R> each_raw_sums;
+        each_raw_sums.fill(0);
+
+        for (std::size_t i = 0; i < raw_size(); ++i) {
+            for (const auto &x: mat_.at(i)) {
+                each_raw_sums.at(i) += std::abs(x);
+            }
+        }
+        return *std::max_element(each_raw_sums.begin(), each_raw_sums.end());
     }
 };
+
+#include "utils.hpp"
+//#include "calculation.hpp"
+
+#endif //NUMERICAL_ANALYSIS_CALCULATION_HPP
