@@ -20,4 +20,14 @@ std::ostream &operator<<(std::ostream &stream, const Mat<T, R, C> &mat) {
     return stream;
 }
 
+template<typename T, std::size_t R, std::size_t C>
+inline bool operator==(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
+    return a.mat_ == b.mat_;
+}
+
+template<typename T, std::size_t R, std::size_t C>
+bool operator!=(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
+    return a.mat_ != b.mat_;
+}
+
 #endif //NUMERICAL_ANALYSIS_UTILS_HPP
