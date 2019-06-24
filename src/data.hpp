@@ -108,6 +108,5 @@ struct Mat {
 };
 
 #include "utils.hpp"
-//#include "calculation.hpp"
 
 #endif //NUMERICAL_ANALYSIS_CALCULATION_HPP
