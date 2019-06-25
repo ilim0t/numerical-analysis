@@ -26,7 +26,8 @@ include(GoogleTest)
 
 add_executable(NumericalAnalysisTest
         definition_test.cpp
-        norm_test.cpp)
+        norm_test.cpp
+        iterative_method_test.cpp)
 target_link_libraries(NumericalAnalysisTest
 #        NumericalAnalysisLIB
         gtest
