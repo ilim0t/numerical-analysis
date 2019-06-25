@@ -25,9 +25,12 @@ endif ()
 include(GoogleTest)
 
 add_executable(NumericalAnalysisTest
+        calculation_test.cpp
+        comparison_test.cpp
         definition_test.cpp
-        norm_test.cpp
-        iterative_method_test.cpp)
+        iterative_method_test.cpp
+        norm_test.cpp)
+
 target_link_libraries(NumericalAnalysisTest
 #        NumericalAnalysisLIB
         gtest

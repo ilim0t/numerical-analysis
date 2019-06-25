@@ -3,6 +3,11 @@
 
 #include "data.hpp"
 
+/**
+ * Matを出力するためのもの
+ *
+ * std::cout << Mat<float, 2, 2> {{0, 1}, {1, 2}} のように使う
+ */
 template<typename T, std::size_t R, std::size_t C>
 std::ostream &operator<<(std::ostream &stream, const Mat<T, R, C> &mat) {
     stream << "[";
@@ -18,6 +23,20 @@ std::ostream &operator<<(std::ostream &stream, const Mat<T, R, C> &mat) {
     std::copy(mat.back().begin(), mat.back().end() - 1, std::ostream_iterator<T>(stream, ", "));
     stream << mat.back().back() << "]]";
     return stream;
+}
+
+
+/**
+ * Mat同士を比較するもの
+ */
+template<typename T, std::size_t R, std::size_t C>
+inline bool operator==(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
+    return a.mat_ == b.mat_;
+}
+
+template<typename T, std::size_t R, std::size_t C>
+bool operator!=(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
+    return a.mat_ != b.mat_;
 }
 
 #endif //NUMERICAL_ANALYSIS_UTILS_HPP
