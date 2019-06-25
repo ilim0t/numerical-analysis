@@ -3,6 +3,9 @@
 
 #include "data.hpp"
 
+/**
+ * 行列の積
+ */
 template<typename T, std::size_t N, std::size_t M, std::size_t L>
 Mat<T, N, M> dot(const Mat<T, N, L> &a, const Mat<T, L, M> &b) {
     Mat<T, N, M> result(0);
