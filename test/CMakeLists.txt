@@ -25,10 +25,11 @@ endif ()
 include(GoogleTest)
 
 add_executable(NumericalAnalysisTest
-        definition_test.cpp
-
+        calculation_test.cpp
         comparison_test.cpp
-        calculation_test.cpp)
+        definition_test.cpp
+        gaussian_elimination_test.cpp
+        norm_test.cpp)
 
 target_link_libraries(NumericalAnalysisTest
 #        NumericalAnalysisLIB
