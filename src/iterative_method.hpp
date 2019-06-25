@@ -5,6 +5,23 @@
 #include <functional>
 #include <tuple>
 
+//decltype(std::abs(mat_.at(0).at(0)))
+template<typename T>
+std::function<bool(T, T)> error(T eps = 1e-5) {
+    return [&](T x, T x_pre) { return std::abs(x - x_pre) < eps; };
+}
+
+template<typename T>
+std::function<bool(T, T)> relative_error(T eps = 1e-5) {
+    return [&](T x, T x_pre) { return std::abs((x - x_pre) / x) < eps; };
+}
+
+template<typename T>
+std::function<bool(T, T)> residual(const std::function<T(T)> &func, T eps = 1e-5) {
+    return [&](T x, T x_pre) { return std::abs(func(x)) < eps; };
+
+}
+
 /**
  * セカント法
  *
@@ -22,11 +39,11 @@
  */
 template<typename T>
 std::tuple<T, std::size_t, bool, std::vector<T>>
-secant(const std::function<T(T)> &func, const std::function<bool(T)> &convergence_codition, T x0 = 0,
+secant(const std::function<T(T)> &func, const std::function<bool(T, T)> &convergence_codition, T x0 = 0,
        T x1 = 1, std::size_t max_num = 1e+10) {
     std::vector<T> xs = {x0, x1};
 
-    if (convergence_codition(xs.back())) {
+    if (convergence_codition(xs.back(), xs.crbegin()[1])) {
         return {xs.back(), 2, true, xs};
     }
 
@@ -36,7 +53,7 @@ secant(const std::function<T(T)> &func, const std::function<bool(T)> &convergenc
                 xs.back() -
                 func(xs.back()) * (xs.back() - xs.crbegin()[1]) / (func(xs.back()) - func(xs.crbegin()[1])));
 
-        if (convergence_codition(xs.back())) {
+        if (convergence_codition(xs.back(), xs.crbegin()[1])) {
             return {xs.back(), n, true, xs};
         }
     }
