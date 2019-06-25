@@ -50,12 +50,12 @@ newton(const std::function<T(T)> &func, const std::function<T(T)> &dfunc,
 //    }
 
 //    反復
-    for (int n = 1; n <= max_num; ++n) {
+    while (xs.size() < max_num) {
         xs.push_back(xs.back() - func(xs.back()) / dfunc(xs.back()));
         assert(!std::isinf(xs.back()));
 
         if (convergence_codition(xs.back(), xs.crbegin()[1])) {
-            return {xs.back(), n, true, xs};
+            return {xs.back(), xs.size(), true, xs};
         }
     }
     return {xs.back(), max_num, false, xs};
@@ -87,14 +87,14 @@ secant(const std::function<T(T)> &func, const std::function<bool(T, T)> &converg
     }
 
 //    反復
-    for (int n = 2; n <= max_num; ++n) {
+    while (xs.size() < max_num) {
         xs.push_back(
                 xs.back() -
                 func(xs.back()) * (xs.back() - xs.crbegin()[1]) / (func(xs.back()) - func(xs.crbegin()[1])));
         assert(!std::isinf(xs.back()));
 
         if (convergence_codition(xs.back(), xs.crbegin()[1])) {
-            return {xs.back(), n, true, xs};
+            return {xs.back(), xs.size(), true, xs};
         }
     }
     return {xs.back(), max_num, false, xs};
