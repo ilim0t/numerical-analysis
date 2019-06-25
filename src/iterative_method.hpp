@@ -7,19 +7,17 @@
 
 //decltype(std::abs(mat_.at(0).at(0)))
 template<typename T>
-std::function<bool(T)> error(T eps = 1e-5) {
+std::function<bool(T, T)> error(T eps = 1e-5) {
     return [&](T x, T x_pre) { return std::abs(x - x_pre) < eps; };
 }
 
 template<typename T>
-std::function<bool(T)> relative_error(T eps = 1e-5) {
+std::function<bool(T, T)> relative_error(T eps = 1e-5) {
     return [&](T x, T x_pre) { return std::abs((x - x_pre) / x) < eps; };
-};
-
 }
 
 template<typename T>
-std::function<bool(T)> residual(const std::function<T(T)> &func, T eps = 1e-5) {
+std::function<bool(T, T)> residual(const std::function<T(T)> &func, T eps = 1e-5) {
     return [&](T x, T x_pre) { return std::abs(func(x)) < eps; };
 
 }
