@@ -8,11 +8,11 @@
 
 template<typename T, std::size_t N>
 Mat<T, 1, N> gaussian_elimination(const Mat<T, N, N> &mat, const Mat<T, 1, N> &vec) {
-    const auto[forward_erased_mat, forward_erased_vec] = forward_erase(mat, vec);
-    const auto[back_substitutioned_mat, back_substitutioned_vec] = back_substitution(forward_erased_mat, forward_erased_vec);
+    const auto forward_eraseded = forward_erase(mat, vec);
+    const auto back_substitutioned = back_substitution(forward_eraseded.first, forward_eraseded.second);
     Mat<T, 1, N> result(0);
     for (std::size_t i = 0; i < N; ++i) {
-        result.at(0, i) = back_substitutioned_vec.at(0, i) / back_substitutioned_mat.at(i, i);
+        result.at(0, i) = back_substitutioned.second.at(0, i) / back_substitutioned.first.at(i, i);
     }
     return result;
 }
