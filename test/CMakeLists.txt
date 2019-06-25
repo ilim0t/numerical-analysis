@@ -26,8 +26,10 @@ include(GoogleTest)
 
 add_executable(NumericalAnalysisTest
         definition_test.cpp
-        norm_test.cpp
+
+        comparison_test.cpp
         calculation_test.cpp)
+
 target_link_libraries(NumericalAnalysisTest
 #        NumericalAnalysisLIB
         gtest
