@@ -35,7 +35,7 @@ template<typename T>
 std::tuple<T, std::size_t>
 newton(const std::function<T(T)> &func, const std::function<T(T)> &dfunc,  const std::function<bool(T)> &convergence_codition, T first_value = 0, std::size_t max_num = 1e+10) {
     std::vector<T> xs = {first_value, dfunc};
-    int interative_num = 2;
+    int interative_num = 10;
 
     for (; interative_num < max_num; ++interative_num) {
         xs.push_back(
