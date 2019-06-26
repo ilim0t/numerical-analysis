@@ -17,3 +17,13 @@ TEST(Data_Mat_Calculation, Dot) {
                                     {0.6}}),
               0.27);
 }
+
+TEST(Data_Mat_Calculation, minus) {
+    EXPECT_EQ((-Mat<double, 2, 2>{{1, 2},
+                                  {3, 4}}),
+              (Mat<double, 2, 2>{{-1, -2},
+                                 {-3, -4}}));
+
+    EXPECT_EQ((-Mat<double, 1, 1>{{0}}),
+              0.);
+}

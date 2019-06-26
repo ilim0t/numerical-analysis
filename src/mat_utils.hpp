@@ -59,4 +59,19 @@ inline bool operator!=(T b, const Mat<T, 1, 1> &a) {
     return b != a.at(0, 0);
 }
 
+/**
+ * Mat同士の演算
+ */
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator-(const Mat<T, N, M> &mat) {
+    auto result = mat.copy();
+    for (auto &col: result) {
+        for (auto &x: col) {
+            x = -x;
+        }
+    }
+
+    return result;
+}
+
 #endif //NUMERICAL_ANALYSIS_MAT_UTILS_HPP
