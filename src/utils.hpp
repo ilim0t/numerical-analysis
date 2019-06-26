@@ -35,8 +35,28 @@ inline bool operator==(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
 }
 
 template<typename T, std::size_t R, std::size_t C>
-bool operator!=(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
+inline bool operator!=(const Mat<T, R, C> &a, const Mat<T, R, C> &b) {
     return a.mat_ != b.mat_;
+}
+
+template<typename T>
+inline bool operator==(const Mat<T, 1, 1> &a, T b) {
+    return a.at(0, 0) == b;
+}
+
+template<typename T>
+inline bool operator!=(const Mat<T, 1, 1> &a, T b) {
+    return a.at(0, 0) != b;
+}
+
+template<typename T>
+inline bool operator==(T b, const Mat<T, 1, 1> a) {
+    return b == a.at(0, 0);
+}
+
+template<typename T>
+inline bool operator!=(T b, const Mat<T, 1, 1> &a) {
+    return b != a.at(0, 0);
 }
 
 #endif //NUMERICAL_ANALYSIS_UTILS_HPP
