@@ -49,7 +49,7 @@ struct Mat {
         return R * C;
     }
 
-    _GLIBCXX17_CONSTEXPR T &at(std::size_t i, std::size_t j) {
+    T &at(std::size_t i, std::size_t j) {
         return mat_.at(i).at(j);
     }
 
@@ -57,25 +57,25 @@ struct Mat {
         return mat_.at(i).at(j);
     }
 
-    _GLIBCXX17_CONSTEXPR std::array<T, C> *
+    std::array<T, C> *
     begin() noexcept { return mat_.begin(); }
 
-    _GLIBCXX17_CONSTEXPR const std::array<T, C> *
+    const std::array<T, C> *
     begin() const noexcept { return mat_.begin(); }
 
-    _GLIBCXX17_CONSTEXPR std::array<T, C> *
+    std::array<T, C> *
     end() noexcept { return mat_.end(); }
 
-    _GLIBCXX17_CONSTEXPR const std::array<T, C> *
+    const std::array<T, C> *
     end() const noexcept { return mat_.end(); }
 
-    _GLIBCXX17_CONSTEXPR std::array<T, C> &
+    std::array<T, C> &
     front() noexcept { return mat_.front(); }
 
     constexpr const std::array<T, C> &
     front() const noexcept { return mat_.front(); }
 
-    _GLIBCXX17_CONSTEXPR std::array<T, C> &
+    std::array<T, C> &
     back() noexcept { return mat_.back(); }
 
     constexpr const std::array<T, C> &
