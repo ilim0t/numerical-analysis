@@ -15,5 +15,5 @@ TEST(Data_Mat_Calculation, Dot) {
     EXPECT_EQ(dot(Mat<double, 1, 2>{{0.1, 0.4}},
                   Mat<double, 2, 1>{{0.3},
                                     {0.6}}),
-              (Mat<double, 1, 1>{{0.27}}));
+              0.27);
 }
