@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <complex>
 #include <iostream>
-#include "data.hpp"
-#include "calculation.hpp"
+#include <data.hpp>
+#include <calculation.hpp>
 
 TEST(Data_Mat_Calculation, Dot) {
     EXPECT_EQ(dot(Mat<double, 2, 2>{{1, 2},

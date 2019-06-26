@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "data.hpp"
-#include "gaussian_elimination.hpp"
+#include <data.hpp>
+#include <gaussian_elimination.hpp>
 
 TEST(Mat_Gauusian_Elimination_Test, Forward_Erase) {
     ASSERT_EQ((forward_erase(Mat<double, 2, 2>{{1, 4},

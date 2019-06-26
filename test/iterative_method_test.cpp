@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "iterative_method.hpp"
+#include <iterative_method.hpp>
 #include <cmath>
 #include <functional>
 #include <tuple>
