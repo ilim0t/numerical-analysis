@@ -31,6 +31,7 @@ add_executable(NumericalAnalysisTest
         gaussian_elimination_test.cpp
         inverse_matrix.cpp
         iterative_method_test.cpp
+        LU_decomposition_test.cpp
         norm_test.cpp)
 
 target_link_libraries(NumericalAnalysisTest
