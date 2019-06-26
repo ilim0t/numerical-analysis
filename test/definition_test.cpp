@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <complex>
-#include "data.hpp"
+#include <data.hpp>
 
 TEST(Data_Mat_Definition, Initialization) {
     EXPECT_NO_THROW(({

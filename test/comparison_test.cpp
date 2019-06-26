@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "data.hpp"
+#include <data.hpp>
 
 TEST(Data_Mat_Comparison, equal) {
     EXPECT_EQ((Mat<int, 2, 2>{

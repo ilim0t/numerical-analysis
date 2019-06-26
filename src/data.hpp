@@ -81,6 +81,14 @@ struct Mat {
     constexpr const std::array<T, C> &
     back() const noexcept { return mat_.back(); }
 
+    Mat<T, R, C> copy() const {
+        Mat<T, R, C> result(0);
+        for (std::size_t i = 0; i < R; ++i) {
+            result.mat_.at(i) = mat_.at(i);
+        }
+        return result;
+    };
+
 
     const decltype(std::abs(mat_.at(0).at(0))) norm_1() const {
         std::array<decltype(std::abs(mat_.at(0).at(0))), C> each_col_sums;
