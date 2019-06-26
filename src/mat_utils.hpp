@@ -1,5 +1,5 @@
-#ifndef NUMERICAL_ANALYSIS_UTILS_HPP
-#define NUMERICAL_ANALYSIS_UTILS_HPP
+#ifndef NUMERICAL_ANALYSIS_MAT_UTILS_HPP
+#define NUMERICAL_ANALYSIS_MAT_UTILS_HPP
 
 #include "data.hpp"
 
@@ -59,4 +59,4 @@ inline bool operator!=(T b, const Mat<T, 1, 1> &a) {
     return b != a.at(0, 0);
 }
 
-#endif //NUMERICAL_ANALYSIS_UTILS_HPP
+#endif //NUMERICAL_ANALYSIS_MAT_UTILS_HPP

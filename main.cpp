@@ -3,12 +3,14 @@
 #include <iostream>
 #include <array>
 #include <complex>
+#include <iomanip>
+
 
 int main() {
     Mat<double, 2, 3> mat1{{1, 2, 3},
                            {4, 5, 6}};
 
-    std::cout << mat1 << std::endl;
+    std::cout << std::scientific << std::setprecision(2) << mat1 << std::endl;
 
     Mat<int, 1, 5> mat2(0);
 
