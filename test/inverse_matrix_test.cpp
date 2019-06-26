@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "data.hpp"
-#include "inverse_matrix.hpp"
+#include <data.hpp>
+#include <inverse_matrix_test.hpp>
 
 TEST(Mat_Inverse, Forward_Substitution) {
     ASSERT_EQ((forward_substitution(Mat<double, 2, 2>{{1, 0},

@@ -1,5 +1,5 @@
-#ifndef NUMERICAL_ANALYSIS_INVERSE_MATRIX_HPP
-#define NUMERICAL_ANALYSIS_INVERSE_MATRIX_HPP
+#ifndef NUMERICAL_ANALYSIS_INVERSE_MATRIX_TEST_HPP
+#define NUMERICAL_ANALYSIS_INVERSE_MATRIX_TEST_HPP
 
 #include <data.hpp>
 #include <cassert>
@@ -79,4 +79,4 @@ Mat<T, 1, N> backward_substitution(const Mat<T, N, N> &U, const Mat<T, 1, N> &y)
     return result;
 }
 
-#endif //NUMERICAL_ANALYSIS_INVERSE_MATRIX_HPP
+#endif //NUMERICAL_ANALYSIS_INVERSE_MATRIX_TEST_HPP
