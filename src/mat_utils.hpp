@@ -1,5 +1,5 @@
-#ifndef NUMERICAL_ANALYSIS_UTILS_HPP
-#define NUMERICAL_ANALYSIS_UTILS_HPP
+#ifndef NUMERICAL_ANALYSIS_MAT_UTILS_HPP
+#define NUMERICAL_ANALYSIS_MAT_UTILS_HPP
 
 #include "data.hpp"
 
@@ -59,4 +59,40 @@ inline bool operator!=(T b, const Mat<T, 1, 1> &a) {
     return b != a.at(0, 0);
 }
 
-#endif //NUMERICAL_ANALYSIS_UTILS_HPP
+/**
+ * Mat同士の演算
+ */
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator-(const Mat<T, N, M> &mat) {
+    auto result = mat.copy();
+    for (auto &col: result) {
+        for (auto &x: col) {
+            x = -x;
+        }
+    }
+    return result;
+}
+
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator+(const Mat<T, N, M> &mat1, const Mat<T, N, M> &mat2) {
+    Mat<T, N, M> result(0);
+    for (std::size_t i = 0; i < N; ++i) {
+        for (std::size_t j = 0; j < M; ++j) {
+            result.at(i, j) = mat1.at(i, j) + mat2.at(i, j);
+        }
+    }
+    return result;
+}
+
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator-(const Mat<T, N, M> &mat1, const Mat<T, N, M> &mat2) {
+    Mat<T, N, M> result(0);
+    for (std::size_t i = 0; i < N; ++i) {
+        for (std::size_t j = 0; j < M; ++j) {
+            result.at(i, j) = mat1.at(i, j) - mat2.at(i, j);
+        }
+    }
+    return result;
+}
+
+#endif //NUMERICAL_ANALYSIS_MAT_UTILS_HPP
