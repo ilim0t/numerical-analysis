@@ -70,7 +70,28 @@ inline Mat<T, N, M> operator-(const Mat<T, N, M> &mat) {
             x = -x;
         }
     }
+    return result;
+}
 
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator+(const Mat<T, N, M> &mat1, const Mat<T, N, M> &mat2) {
+    Mat<T, N, M> result(0);
+    for (std::size_t i = 0; i < N; ++i) {
+        for (std::size_t j = 0; j < M; ++j) {
+            result.at(i, j) = mat1.at(i, j) + mat2.at(i, j);
+        }
+    }
+    return result;
+}
+
+template<typename T, std::size_t N, std::size_t M>
+inline Mat<T, N, M> operator-(const Mat<T, N, M> &mat1, const Mat<T, N, M> &mat2) {
+    Mat<T, N, M> result(0);
+    for (std::size_t i = 0; i < N; ++i) {
+        for (std::size_t j = 0; j < M; ++j) {
+            result.at(i, j) = mat1.at(i, j) - mat2.at(i, j);
+        }
+    }
     return result;
 }
 
