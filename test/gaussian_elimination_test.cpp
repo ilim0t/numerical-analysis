@@ -34,3 +34,16 @@ TEST(Mat_Gauusian_Elimination_Test, Gaussian_Elimination) {
                                     Mat<double, 1, 2>{{9, -10}})),
               (Mat<double, 1, 2>{{1, 2}}));
 }
+
+TEST(Mat_Gauusian_Elimination_Test, Sparse_Gaussian_Elimination) {
+    ASSERT_EQ((gaussian_elimination(Mat<double, 2, 2>{{0, 2},
+                                                      {2, 3}},
+                                    Mat<double, 1, 2>{{-6, -5}})),
+              (Mat<double, 1, 2>{{2, -3}}));
+
+    ASSERT_EQ((gaussian_elimination(Mat<double, 3, 3>{{0, 1, 4},
+                                                      {2, 0, 3},
+                                                      {2, 3, 0}},
+                                    Mat<double, 1, 3>{{14, 11, 8}})),
+              (Mat<double, 1, 3>{{1, 2, 3}}));
+}

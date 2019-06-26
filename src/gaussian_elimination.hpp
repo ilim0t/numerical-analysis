@@ -24,13 +24,21 @@ std::pair<Mat<T, N, N>, Mat<T, 1, N>> forward_erase(const Mat<T, N, N> &mat, con
     Mat<T, 1, N> result_vec = vec.copy();
 
     for (std::size_t i = 0; i < N; ++i) {
+        if (result_mat.at(i, i) == 0) {
+            for (std::size_t j = i + 1; j < N; ++j) {
+                if (result_mat.at(j, i) != 0) {
+                    result_mat.mat_.at(i).swap(result_mat.mat_.at(j));
+                    std::swap(result_vec.at(0, i), result_vec.at(0, j));
+                    break;
+                }
+            }
+        }
+        assert(result_mat.at(i, i) != 0);
+
         for (std::size_t j = i + 1; j < N; ++j) {
-            assert(result_mat.at(i, i) != 0);
-            result_vec.at(0, j) = result_vec.at(0, j) - result_vec.at(0, i) * result_mat.at(j, i) / result_mat.at(i, i);
+            result_vec.at(0, j) -= result_vec.at(0, i) * result_mat.at(j, i) / result_mat.at(i, i);
             for (std::size_t k = 0; k < N - i; ++k) {
-                result_mat.at(j, N - k - 1) =
-                        result_mat.at(j, N - k - 1) -
-                        result_mat.at(i, N - k - 1) * result_mat.at(j, i) / result_mat.at(i, i);
+                result_mat.at(j, N - k - 1) -= result_mat.at(i, N - k - 1) * result_mat.at(j, i) / result_mat.at(i, i);
             }
         }
     }
@@ -57,13 +65,11 @@ std::pair<Mat<T, N, N>, Mat<T, 1, N>> back_substitution(const Mat<T, N, N> &mat,
     Mat<T, 1, N> result_vec = vec.copy();
 
     for (std::size_t i = 0; i < N; ++i) {
+        assert(result_mat.at(N - i - 1, N - i - 1) != 0);
         for (std::size_t j = i + 1; j < N; ++j) {
-            assert(result_mat.at(N - i - 1, N - i - 1) != 0);
-            result_vec.at(0, N - j - 1) =
-                    result_vec.at(0, N - j - 1) - result_vec.at(0, N - i - 1) * result_mat.at(N - j - 1, N - i - 1) /
-                                                  result_mat.at(N - i - 1, N - i - 1);
-            result_mat.at(N - j - 1, N - i - 1) =
-                    result_mat.at(N - j - 1, N - i - 1) -
+            result_vec.at(0, N - j - 1) -= result_vec.at(0, N - i - 1) * result_mat.at(N - j - 1, N - i - 1) /
+                                           result_mat.at(N - i - 1, N - i - 1);
+            result_mat.at(N - j - 1, N - i - 1) -=
                     result_mat.at(N - i - 1, N - i - 1) * result_mat.at(N - j - 1, N - i - 1) /
                     result_mat.at(N - i - 1, N - i - 1);
         }
