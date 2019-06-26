@@ -4,27 +4,28 @@
 #include <data.hpp>
 #include <cassert>
 #include <gaussian_elimination.hpp>
+#include <LU_decomposition.hpp>
 
-//template<typename T, std::size_t N>
-//Mat<T, N, N> inverse(const Mat<T, N, N> &mat) {
-//    Mat<T, N, N> result(0);
-//    const auto LU = LU(mat);
-//    const auto L = LU.first;
-//    const auto U = LU.second;
-//
-//    for (std::size_t i = 0; i < N; ++i) {
-//        const Mat<T, 1, N> e(0);
-//        e.at(0, i) = 1;
-//
-//        const auto y = forward_substitution(L, e);
-//        const auto x = backward_substitution(U, y);
-//
-//        for (std::size_t j = 0; j < N; ++j) {
-//            result.at(j, i) = x.at(0, j);
-//        }
-//    }
-//    return result;
-//}
+template<typename T, std::size_t N>
+Mat<T, N, N> inverse(const Mat<T, N, N> &mat) {
+    Mat<T, N, N> result(0);
+    const auto LU = LU_decomposition(mat);
+    const auto L = LU.first;
+    const auto U = LU.second;
+
+    for (std::size_t i = 0; i < N; ++i) {
+        Mat<T, 1, N> e(0);
+        e.at(0, i) = 1;
+
+        const auto y = forward_substitution(L, e);
+        const auto x = backward_substitution(U, y);
+
+        for (std::size_t j = 0; j < N; ++j) {
+            result.at(j, i) = x.at(0, j);
+        }
+    }
+    return result;
+}
 
 template<typename T, std::size_t N>
 Mat<T, 1, N> forward_substitution(const Mat<T, N, N> &L, const Mat<T, 1, N> &e) {
