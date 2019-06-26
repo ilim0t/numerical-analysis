@@ -29,6 +29,7 @@ add_executable(NumericalAnalysisTest
         comparison_test.cpp
         definition_test.cpp
         gaussian_elimination_test.cpp
+        inverse_matrix.cpp
         iterative_method_test.cpp
         norm_test.cpp)
 
