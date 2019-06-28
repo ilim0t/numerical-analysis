@@ -36,6 +36,14 @@ struct Mat {
         }
     }
 
+    Mat(const Mat<T, R, C> &mat) {
+        for (std::size_t i = 0; i < raw_size(); ++i) {
+            for (std::size_t j = 0; j < col_size(); ++j) {
+                at(i, j) = mat.at(i, j);
+            }
+        }
+    }
+
 
     constexpr const std::size_t raw_size() const {
         return R;
@@ -88,6 +96,26 @@ struct Mat {
         }
         return result;
     };
+
+    Mat<T, R, C> conj() const {
+        Mat<T, R, C> result(0);
+        for (std::size_t i = 0; i < R; ++i) {
+            for (std::size_t j = 0; j < C; ++j) {
+                result.at(i, j) = std::conj(at(i, j));
+            }
+        }
+        return result;
+    }
+
+    Mat<T, C, R> adjoint() const {
+        Mat<T, C, R> result(0);
+        for (std::size_t i = 0; i < R; ++i) {
+            for (std::size_t j = 0; j < C; ++j) {
+                result.at(j, i) = std::conj(at(i, j));
+            }
+        }
+        return result;
+    }
 
 
     const decltype(std::abs(mat_.at(0).at(0))) norm_1() const {
