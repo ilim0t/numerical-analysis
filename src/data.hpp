@@ -98,8 +98,9 @@ struct Mat {
         return result;
     };
 
-    Mat<T, R, C> conj() const {
-        Mat<T, R, C> result(0);
+    Mat<std::complex<decltype(std::abs(mat_.at(0).at(0)))>, R, C> conj() const {
+        Mat<std::complex<decltype(std::abs(mat_.at(0).at(0)))>, R, C> result(
+                std::complex<decltype(std::abs(mat_.at(0).at(0)))>(0));
         for (std::size_t i = 0; i < R; ++i) {
             for (std::size_t j = 0; j < C; ++j) {
                 result.at(i, j) = std::conj(at(i, j));
@@ -108,8 +109,9 @@ struct Mat {
         return result;
     }
 
-    Mat<T, C, R> adjoint() const {
-        Mat<T, C, R> result(0);
+    Mat<std::complex<decltype(std::abs(mat_.at(0).at(0)))>, C, R> adjoint() const {
+        Mat<std::complex<decltype(std::abs(mat_.at(0).at(0)))>, C, R> result(
+                std::complex<decltype(std::abs(mat_.at(0).at(0)))>(0));
         for (std::size_t i = 0; i < R; ++i) {
             for (std::size_t j = 0; j < C; ++j) {
                 result.at(j, i) = std::conj(at(i, j));

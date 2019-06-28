@@ -52,3 +52,27 @@ TEST(Data_Mat_Calculation, Subtraction) {
     EXPECT_EQ((Mat<double, 1, 1>{{1}} - Mat<double, 1, 1>{{-1}}),
               2.);
 }
+
+TEST(Data_Mat_Calculation, Conj) {
+    EXPECT_EQ((Mat<double, 2, 2>{{1, 2},
+                                 {3, 4}}.conj()),
+              (Mat<std::complex<double>, 2, 2>{{1, 2},
+                                               {3, 4}}));
+
+    EXPECT_EQ((Mat<std::complex<double>, 2, 2>{{std::complex<double>(1, 2), std::complex<double>(3, 4)},
+                                               {std::complex<double>(5, 6), std::complex<double>(7, 8)}}.conj()),
+              (Mat<std::complex<double>, 2, 2>{{std::complex<double>(1, -2), std::complex<double>(3, -4)},
+                                               {std::complex<double>(5, -6), std::complex<double>(7, -8)}}));
+}
+
+TEST(Data_Mat_Calculation, Adjoint) {
+    EXPECT_EQ((Mat<double, 2, 2>{{1, 2},
+                                 {3, 4}}.adjoint()),
+              (Mat<std::complex<double>, 2, 2>{{1, 3},
+                                               {2, 4}}));
+
+    EXPECT_EQ((Mat<std::complex<double>, 2, 2>{{std::complex<double>(1, 2), std::complex<double>(3, 4)},
+                                               {std::complex<double>(5, 6), std::complex<double>(7, 8)}}.adjoint()),
+              (Mat<std::complex<double>, 2, 2>{{std::complex<double>(1, -2), std::complex<double>(5, -6)},
+                                               {std::complex<double>(3, -4), std::complex<double>(7, -8)}}));
+}
