@@ -36,7 +36,8 @@ struct Mat {
         }
     }
 
-    Mat(const Mat<T, R, C> &mat) {
+    template<typename T2>
+    Mat(const Mat<T2, R, C> &mat) {
         for (std::size_t i = 0; i < raw_size(); ++i) {
             for (std::size_t j = 0; j < col_size(); ++j) {
                 at(i, j) = mat.at(i, j);
