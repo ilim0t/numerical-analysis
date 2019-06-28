@@ -35,14 +35,14 @@ TEST(Iterative_Method, Jacobi_Method) {
                           Mat<double, 1, 2>{{-2, 2}},
                           std::function<bool(Mat<double, 1, 2>, Mat<double, 1, 2>)>(
                                   [](Mat<double, 1, 2> x, Mat<double, 1, 2> x_pre) {
-                                      return (x - x_pre).norm_2() / x.norm_2() < 1e-3;
+                                      return (x - x_pre).norm_1() / x.norm_1() < 1e-3;
                                   }), Mat<double, 1, 2>(0))
     ).at(0, 0)), -1, 1e-3);
 
-    ASSERT_NEAR((std::get<0>(
-            jacobi_method(Mat<double, 2, 2>{{3, 1},
-                                            {1, 3}},
-                          Mat<double, 1, 2>{{-2, 2}},
-                          relative_error<double, 2>(1e-5), Mat<double, 1, 2>(0))
-    ).at(0, 1)), 1, 1e-3);
+//    ASSERT_NEAR((std::get<0>(
+//            jacobi_method(Mat<double, 2, 2>{{3, 1},
+//                                            {1, 3}},
+//                          Mat<double, 1, 2>{{-2, 2}},
+//                          relative_error<double, 2>(1e-5), Mat<double, 1, 2>(0))
+//    ).at(0, 1)), 1, 1e-3);
 }
