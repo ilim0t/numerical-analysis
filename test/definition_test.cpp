@@ -98,3 +98,36 @@ TEST(Data_Mat_Definition, RareShape2) {
     EXPECT_EQ((Mat<int, 2, 1>{{400},
                               {401}}.at(1, 0)), 401);
 }
+
+TEST(Data_Mat_Definition, Copy) {
+    EXPECT_EQ((Mat<int, 1, 2>{{0, 0}}.copy()), (Mat<int, 1, 2>{{0, 0}}));
+
+    EXPECT_EQ((Mat<double, 2, 2>{{1, 2},
+                                 {3, 4}}.copy()),
+              (Mat<double, 2, 2>{{1, 2},
+                                 {3, 4}}));
+}
+
+TEST(Data_Mat_Definition, Substitution) {
+    EXPECT_EQ((Mat<int, 1, 2>{{0, 0}}),
+              (Mat<int, 1, 2>(Mat<int, 1, 2>{{0, 0}})));
+
+    EXPECT_EQ((Mat<double, 2, 2>{{1, 2},
+                                 {3, 4}}),
+              (Mat<double, 2, 2>(Mat<double, 2, 2>{{1, 2},
+                                                   {3, 4}})));
+
+    EXPECT_EQ((Mat<std::complex<double>, 2, 2>{
+            {std::complex<double>(0.60, -0.47), std::complex<double>(0.93, 0.94)},
+            {std::complex<double>(-0.75, 0.81), std::complex<double>(-0.41, 0.71)}}),
+              (Mat<std::complex<double>, 2, 2>(
+                      Mat<std::complex<double>, 2, 2>{
+                              {std::complex<double>(0.60, -0.47), std::complex<double>(0.93, 0.94)},
+                              {std::complex<double>(-0.75, 0.81), std::complex<double>(-0.41, 0.71)}})));
+
+    EXPECT_EQ((Mat<std::complex<double>, 2, 2>{{1, 2},
+                                               {3, 4}}),
+              (Mat<std::complex<double>, 2, 2>(
+                      Mat<double, 2, 2>{{1, 2},
+                                        {3, 4}})));
+}
