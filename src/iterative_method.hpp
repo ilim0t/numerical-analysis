@@ -55,7 +55,7 @@ newton(const std::function<T(T)> &func, const std::function<T(T)> &dfunc,
         assert(!std::isinf(xs.back()));
 
         if (convergence_codition(xs.back(), xs.crbegin()[1])) {
-            return {xs.back(), xs.size(), true, xs};
+            return {xs.back(), xs.size() - 1, true, xs};
         }
     }
     return {xs.back(), max_num, false, xs};
@@ -94,7 +94,7 @@ secant(const std::function<T(T)> &func, const std::function<bool(T, T)> &converg
         assert(!std::isinf(xs.back()));
 
         if (convergence_codition(xs.back(), xs.crbegin()[1])) {
-            return {xs.back(), xs.size(), true, xs};
+            return {xs.back(), xs.size() - 1, true, xs};
         }
     }
     return {xs.back(), max_num, false, xs};
