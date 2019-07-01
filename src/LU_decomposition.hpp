@@ -31,7 +31,9 @@ std::pair<Mat<T, N, N>, Mat<T, N, N> > LU_decomposition(const Mat<T, N, N> &mat)
     for (std::size_t i = 0; i < N; ++i) {
         assert(U.at(i, i) != 0);
         for (std::size_t j = i + 1; j < N; ++j) {
-            assert(U.at(j, i) == 0);
+//            assert(U.at(j, i) == 0);
+            U.at(j, i) = 0;
+
         }
     }
     return {L, U};

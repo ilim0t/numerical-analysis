@@ -46,7 +46,8 @@ std::pair<Mat<T, N, N>, Mat<T, 1, N>> forward_erase(const Mat<T, N, N> &mat, con
     // 上三角行列かどうかの確認
     for (std::size_t i = 1; i < N; ++i) {
         for (std::size_t j = 0; j < i; ++j) {
-            assert(result_mat.at(i, j) == 0);
+//            assert(result_mat.at(i, j) == 0);
+            result_mat.at(i, j) = 0;
         }
     }
     return {result_mat, result_vec};
